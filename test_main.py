@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
 from time import sleep
 import sys
 import rospy
@@ -24,9 +25,19 @@ def callback(msg):
 	elif(msg.data == "face"):
 		print("face")
 		start.publish("face_cut")
+		
 if __name__ == '__main__':
 	rospy.init_node("spr_main")
-	sleep(15)
+	# Speach and personal recognision start.
+
+	os.system('espeak "{I want to play a riddle game}" -s 90')
+	print("SPR start")
+
+	os.system('espeak "{I will wait for 10 seconds}" -s 90')
+	print("Waiting for 10 seconds")
+
+	# Specify waiting time
+	sleep(10)
 	start = rospy.Publisher("start", String, queue_size=10, latch=True)
 	start.publish("start")# SPR starts
 	

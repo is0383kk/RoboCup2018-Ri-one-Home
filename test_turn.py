@@ -70,19 +70,7 @@ class odmback():
 
 
 if __name__ == '__main__':
-	rospy.init_node('spr_start')
-	
-	
-	# Speach and personal recognision start.
-
-	os.system('espeak "{I want to play a riddle game}" -s 90')
-	print("SPR start")
-
-	os.system('espeak "{I will wait for 10 seconds}" -s 90')
-	print("Waiting for 10 seconds")
-
-	# Specify waiting time
-		
+	rospy.init_node('spr_turn')
 	rate = rospy.Rate(5)
 	f = odmback()
 	while not rospy.is_shutdown():
