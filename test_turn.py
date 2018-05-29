@@ -27,12 +27,14 @@ class odmback():
 	def getOdm(self,odm):
 		self.odm = odm
 
-	def turn_callback(self, msg):
+	def turn_callback(self,msg):
 		"""The rotation angle is specified by Odometry"""
+	
 		print(msg.data)
 		if(self.odm is None):
+			print("No odom")
 			return "No odm"
-
+	
 		"""print(self.odm.pose.pose.orientation.w)"""
 
 		self.rad = math.degrees(math.acos(self.odm.pose.pose.orientation.w))
@@ -49,8 +51,7 @@ class odmback():
 			twist_pub.publish(twist)
 
 			print("----------------")
-			# print("I am turning now")
-			print(twist.angular.z)
+			print("I am turning now")
 			print(self.rad)
 			print("----------------")
 
@@ -65,24 +66,23 @@ class odmback():
 				print("I turned")
 				print("----------------")
 				self.turn_end.publish("turned")
-				break
+				os.system('rosnode kill /spr_start')
 
 
 if __name__ == '__main__':
 	rospy.init_node('spr_start')
-	"""
+	
 	
 	# Speach and personal recognision start.
 
-	os.system('espeak "{I want to play a riddle game}" -s 50')
+	os.system('espeak "{I want to play a riddle game}" -s 90')
 	print("SPR start")
 
-	os.system('espeak "{I will wait for 10 seconds}" -s 50')
+	os.system('espeak "{I will wait for 10 seconds}" -s 90')
 	print("Waiting for 10 seconds")
 
-	sleep(2)
 	# Specify waiting time
-	"""
+		
 	rate = rospy.Rate(5)
 	f = odmback()
 	while not rospy.is_shutdown():
