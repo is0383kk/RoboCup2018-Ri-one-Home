@@ -8,8 +8,13 @@ import rospy
 from std_msgs.msg import String
 
 	
-def function1():
-	print("success")
+def facecut():
+	cut_pub = rospy.Publisher("face_cut", String, queue_size=10, latch=True)
+	cut_pub.publish("plz cut")
+
+def predict():
+	pre_pub = rospy.Publisher("predict", String, queue_size=10, latch=True)
+	pre_pub.publish("plz predict")
 
 def topicDetector():
 	# This is a roop function, so it continues to roop, until topic is received
@@ -18,26 +23,27 @@ def topicDetector():
 
 
 def callback(msg):
-	face_cut = rospy.Publisher("face_cut", String, queue_size=10, latch=True)
 	print(msg.data)
 	if(msg.data == "turned"):
-		print("turned")
-	elif(msg.data == "face"):
-		print("face")
-		start.publish("face_cut")
+		facecut()
+	elif(msg.data == "cut"):
+		predict()
+	elif(msg.data == "predicted"):
+		print("success")
 		
 if __name__ == '__main__':
 	rospy.init_node("spr_main")
 	# Speach and personal recognision start.
-
-	os.system('espeak "{I want to play a riddle game}" -s 90')
+	"""
+	os.system('espeak -v f5 "{I want to play a riddle game}" -s 90')
 	print("SPR start")
 
-	os.system('espeak "{I will wait for 10 seconds}" -s 90')
+	os.system('espeak -v f5 "{I will wait for 10 seconds}" -s 90')
 	print("Waiting for 10 seconds")
 
 	# Specify waiting time
 	sleep(10)
+	"""
 	start = rospy.Publisher("start", String, queue_size=10, latch=True)
 	start.publish("start")# SPR starts
 	

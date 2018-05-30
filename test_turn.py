@@ -16,7 +16,7 @@ from geometry_msgs.msg import Pose
 class odmback():
 	def __init__(self):
 		self.odm_sub = rospy.Subscriber("/odom", Odometry, self.getOdm)
-		self.turn_end = rospy.Publisher("messenger", String, queue_size=10, latch=True)
+		self.node_end = rospy.Publisher("messenger", String, queue_size=10, latch=True)
 		self.odm = None  # Odometry
 		self.rad = None  # Rotation
 
@@ -65,8 +65,9 @@ class odmback():
 				print("----------------")
 				print("I turned")
 				print("----------------")
-				self.turn_end.publish("turned")
-				os.system('rosnode kill /spr_start')
+				sleep(5)
+				self.node_end.publish("turned")
+				os.system('rosnode kill /spr_turn')
 
 
 if __name__ == '__main__':
@@ -76,6 +77,6 @@ if __name__ == '__main__':
 	while not rospy.is_shutdown():
 		rospy.loginfo(f.topicDetector())
 		rate.sleep()
-		rospy.spin()
+		#rospy.spin()
 
 
