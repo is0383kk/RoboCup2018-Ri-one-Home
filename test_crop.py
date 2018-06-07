@@ -16,7 +16,8 @@ from cv_bridge import CvBridge, CvBridgeError
 
 class Face_Cut():
 	def __init__(self):
-		self.sub = rospy.Subscriber("/camera/rgb/image_raw", Image, self.get_image)
+		#self.sub = rospy.Subscriber("/camera/rgb/image_raw", Image, self.get_image)
+		self.sub = rospy.Subscriber("/usb_cam/image_raw", Image, self.get_image)
 		self.node_end = rospy.Publisher("messenger", String, queue_size=10, latch=True)
 		self.bridge = CvBridge()
 		self.image_org = None
@@ -31,15 +32,16 @@ class Face_Cut():
 	def main(self, msg):
 		print(msg.data)
 		while self.image_org is None:
-			self.sub = rospy.Subscriber("/camera/rgb/image_raw", Image, self.get_image)
+			#self.sub = rospy.Subscriber("/camera/rgb/image_raw", Image, self.get_image)
+			self.sub = rospy.Subscriber("/usb_cam/image_raw", Image, self.get_image)
 		
 		cv2.imwrite("/home/yoshiwo/images/test.jpg",self.image_org)
 		
 		# 画像のpath指定
 		imgname = "test"
-		imgpath = imgname + ".jpg"
+		#imgpath = imgname + ".jpg"
 
-		#imgpath = self.image_org
+		imgpath = "/home/yoshiwo/images/test.jpg"
 
 		# Dlib
 		dlib_img = face_recognition.load_image_file(imgpath)

@@ -63,8 +63,8 @@ def main(msg):
 	serializers.load_npz('/home/yoshiwo/my_output_2.model', model)
 
 	pathsAndLabels = []
-	#pathsAndLabels.append(np.asarray(["/home/yoshiwo/images/predict/", 0]))
-	pathsAndLabels.append(np.asarray(["./images/predict/", 0]))
+	pathsAndLabels.append(np.asarray(["/home/yoshiwo/images/predict/", 0]))
+	#pathsAndLabels.append(np.asarray(["./images/predict/", 0]))
 	data = image2data(pathsAndLabels)
 
 	f_count = 0

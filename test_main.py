@@ -16,6 +16,11 @@ def predict():
 	pre_pub = rospy.Publisher("predict", String, queue_size=10, latch=True)
 	pre_pub.publish("plz predict")
 
+def julius():
+	julius_pub = rospy.Publisher("recognition_start", String, queue_size=10, latch=True)
+	julius_pub.publish("start")
+	os.system('rosnode kill /spr_main')
+	
 def topicDetector():
 	# This is a roop function, so it continues to roop, until topic is received
 	print("I am waiting for the next message.")
@@ -29,7 +34,7 @@ def callback(msg):
 	elif(msg.data == "cut"):
 		predict()
 	elif(msg.data == "predicted"):
-		print("success")
+		julius()
 		
 if __name__ == '__main__':
 	rospy.init_node("spr_main")
