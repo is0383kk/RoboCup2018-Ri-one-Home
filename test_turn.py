@@ -65,7 +65,7 @@ class odmback():
 				print("----------------")
 				print("I turned")
 				print("----------------")
-				sleep(5)
+				sleep(6)
 				self.node_end.publish("turned")
 				os.system('rosnode kill /spr_turn')
 

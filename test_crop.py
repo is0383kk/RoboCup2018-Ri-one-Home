@@ -35,13 +35,13 @@ class Face_Cut():
 			#self.sub = rospy.Subscriber("/camera/rgb/image_raw", Image, self.get_image)
 			self.sub = rospy.Subscriber("/usb_cam/image_raw", Image, self.get_image)
 		
-		cv2.imwrite("/home/yoshiwo/images/test.jpg",self.image_org)
+		cv2.imwrite("/home/rione/images/test.jpg",self.image_org)
 		
 		# 画像のpath指定
 		imgname = "test"
 		#imgpath = imgname + ".jpg"
 
-		imgpath = "/home/yoshiwo/images/test.jpg"
+		imgpath = "/home/rione/images/test.jpg"
 
 		# Dlib
 		dlib_img = face_recognition.load_image_file(imgpath)
@@ -60,7 +60,7 @@ class Face_Cut():
 			[top, right, bottom, left] = faces[i]
 			print (faces[i])
 			imgCroped = img.crop((left, top, right, bottom)).resize((96, 96))
-			filename = "/home/yoshiwo/images/predict/%s_%02d.jpg" % (imgname.split(".")[0], i)
+			filename = "/home/rione/images/predict/%s_%02d.jpg" % (imgname.split(".")[0], i)
 			#filename = "%s_%02d.jpg" % (imgname.split(".")[0], i)
 			imgCroped.save(filename)
 

@@ -20,7 +20,7 @@ def julius():
 	julius_pub = rospy.Publisher("recognition_start", String, queue_size=10, latch=True)
 	julius_pub.publish("start")
 	os.system('rosnode kill /spr_main')
-	
+
 def topicDetector():
 	# This is a roop function, so it continues to roop, until topic is received
 	print("I am waiting for the next message.")

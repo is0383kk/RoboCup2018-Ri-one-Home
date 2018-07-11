@@ -5,6 +5,7 @@ from time import sleep
 import model as M
 import os
 import sys
+import cv2
 import rospy
 from std_msgs.msg import String
 import numpy as np
@@ -60,25 +61,31 @@ def main(msg):
 	model = M.Alex()
 	model = L.Classifier(model)
 
-	serializers.load_npz('/home/yoshiwo/my_output_2.model', model)
+	serializers.load_npz('/home/rione/AlexlikeMSGD.model', model)
 
 	pathsAndLabels = []
-	pathsAndLabels.append(np.asarray(["/home/yoshiwo/images/predict/", 0]))
+	pathsAndLabels.append(np.asarray(["/home/rione/images/predict/", 0]))
 	#pathsAndLabels.append(np.asarray(["./images/predict/", 0]))
 	data = image2data(pathsAndLabels)
 
 	f_count = 0
 	m_count = 0
-
+	#p_image = ("/home/rione/images/predict/test_%02d.jpg" % ())
+	
 	for x, t in data:
 		model.to_cpu()
 		y = model.predictor(x[None, ...]).data.argmax(axis=1)[0]
-
-		print("予測値 : " + cls_names[y])
+		print(" Prediction : " + cls_names[y])
 		if(y == 0):
+			f_image = ("/home/rione/images/female/female_%02d.jpg" % (f_count))
+			plt.imsave(f_image, x.transpose(1, 2, 0));
 			f_count = f_count + 1
 		else:
+			m_image = ("/home/rione/images/male/male_%02d.jpg" % (m_count))
+			plt.imsave(m_image, x.transpose(1, 2, 0));
 			m_count = m_count + 1
+		
+		
 
 		#plt.imshow(x.transpose(1, 2, 0))
 		#plt.show()
@@ -92,7 +99,11 @@ def main(msg):
 	#os.system('espeak {""} -s 100')
 	os.system("espeak -v f5 ' " + all + " ' -s 100")
 	os.system("espeak -v f5 ' " + males + "and" + females + " ' -s 100")
-	#os.system('espeak "{5 people, 3 males and 2 females}" -s 100')
+	
+	os.system('espeak -v f5 "{Who would like to play a riddle game with me?}" -s 100')
+	os.system('espeak -v f5 "{I will wait 5 seconds until you come here}" -s 100')
+	sleep(5)
+
 	node_end.publish("predicted")
 	os.system('rosnode kill /spr_predict')
 
