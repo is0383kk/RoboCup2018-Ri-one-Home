@@ -1,0 +1,6 @@
+<launch> 
+<node pkg="yoshiwo_pivate_lesson" name="spr_turn" type="test_turn.py" output="screen" respawn="false"/>
+<node pkg="yoshiwo_pivate_lesson" name="spr_facecut" type="test_facecut.py" output="screen" respawn="false"/>
+<node pkg="yoshiwo_pivate_lesson" name="spr_predict" type="test_predict.py" output="screen" respawn="false"/>
+<node pkg="yoshiwo_pivate_lesson" name="spr_main" type="test_main.py" output="screen"/>
+</launch>
