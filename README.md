@@ -1,1 +1,1 @@
-RoboCup2018@Home EducationLeague のSpeach and personal recognitionで使用した制御から男女分類までのソースコード
+Source code used in RoboCup2018 @Home Education League in Canada for Speach and personal recognition
